@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cupcake Gourmet</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fff8f2;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #ff7fa8;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        .produtos {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 30px;
+        }
+        .produto {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            margin: 15px;
+            padding: 15px;
+            text-align: center;
+            width: 220px;
+        }
+        .produto img {
+            width: 200px;
+            border-radius: 10px;
+        }
+        .produto button {
+            margin-top: 10px;
+            background-color: #ff7fa8;
+            border: none;
+            padding: 10px;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+        }
+        nav a {
+            color: white;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Cupcake Gourmet</h1>
+        <nav>
+            <a href="{{ url_for('index') }}">Início</a>
+            <a href="{{ url_for('cadastro') }}">Cadastro</a>
+            <a href="{{ url_for('login') }}">Login</a>
+        </nav>
+    </header>
+
+    <div class="produtos">
+        {% for produto in produtos %}
+        <div class="produto">
+            <img src="{{ produto.imagem }}" alt="{{ produto.nome

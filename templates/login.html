@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Cupcake Gourmet</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fff8f2;
+        }
+        .container {
+            width: 400px;
+            margin: 50px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #ff7fa8;
+        }
+        input {
+            width: 100%;
+            margin: 8px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        button {
+            width: 100%;
+            background-color: #ff7fa8;
+            border: none;
+            color: white;
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        a {
+            text-decoration: none;
+            color: #ff7fa8;
+            display: block;
+            text-align: center;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Login</h2>
+        <form method="POST">
+            <input type="email" name="email" placeholder="E-mail" required>
+            <input type="password" name="senha" placeholder="Senha" required>
+            <button type="submit">Entrar</button>
+        </form>
+        <a href="{{ url_for('cadastro') }}">Ainda não tem conta? Cadastre-se</a>
+    </div>
+</body>
+</html>
