@@ -65,4 +65,13 @@
     <div class="produtos">
         {% for produto in produtos %}
         <div class="produto">
-            <img src="{{ produto.imagem }}" alt="{{ produto.nome
+            <img src="{{ produto.imagem }}" alt="{{ produto.nome }}">
+            <h3>{{ produto.nome }}</h3>
+            <p>R$ {{ "%.2f"|format(produto.preco) }}</p>
+            <p>Categoria: {{ produto.categoria }}</p>
+            <button>Comprar</button>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
