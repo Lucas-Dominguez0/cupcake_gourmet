@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrinho - Cupcake Gourmet</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            background-color: #fff8f2; 
+            padding: 20px; 
+        }
+        h1 { 
+            color: #ff7fa8; 
+            text-align: center; 
+        }
+        table { 
+            width: 80%; 
+            margin: auto; 
+            border-collapse: collapse; 
+        }
+        th, td { 
+            border: 1px solid #ddd; 
+            padding: 10px; 
+            text-align: center; 
+        }
+        th { 
+            background-color: #ff7fa8; 
+            color: white; 
+        }
+        img { 
+            width: 100px; 
+            border-radius: 10px; 
+        }
+        .total { 
+            font-weight: bold; 
+            text-align: right; 
+            margin-top: 20px; 
+        }
+        a.button { 
+            display: inline-block; 
+            padding: 10px 20px; 
+            background-color: #ff7fa8; 
+            color: white; 
+            text-decoration: none; 
+            border-radius: 8px; 
+            margin-top: 20px; 
+        }
+    </style>
+</head>
+<body>
+    <h1>Meu Carrinho</h1>
+
+    {% if produtos %}
+   <table>
+    <tr>
+        <th>Produto</th>
+        <th>Imagem</th>
+        <th>Preço</th>
+        <th>Quantidade</th>
+        <th>Subtotal</th>
+        <th>Ações</th>
+    </tr>
+    {% for item in produtos %}
+    <tr>
+        <td>{{ item.nome }}</td>
+        <td><img src="{{ item.imagem }}" alt="{{ item.nome }}"></td>
+        <td>R$ {{ "%.2f"|format(item.preco) }}</td>
+        <td>{{ item.qtd }}</td>
+        <td>R$ {{ "%.2f"|format(item.subtotal) }}</td>
+        <td>
+            <a href="{{ url_for('remove_from_cart', produto_id=item.id) }}" 
+                style="color:#ff7fa8; text-decoration:none;">Remover</a>
+        </td>
+        <td>
+            <form method="POST" action="{{ url_for('update_cart') }}" style="display:inline;">
+                <input type="hidden" name="produto_id" value="{{ item.id }}">
+                <input type="hidden" name="action" value="add">
+                <button type="submit">+</button>
+            </form>
+            <form method="POST" action="{{ url_for('update_cart') }}" style="display:inline;">
+                <input type="hidden" name="produto_id" value="{{ item.id }}">
+                <input type="hidden" name="action" value="remove">
+                <button type="submit">-</button>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+     <div class="total">
+        Total: R$ {{ "%.2f"|format(total) }}
+    </div>
+
+   <!-- Escolha do método de pagamento -->
+<div style="text-align:center; margin-top: 30px;">
+    <h3>Selecione o método de pagamento:</h3>
+    <form method="POST" action="{{ url_for('checkout') }}">
+        <label style="margin-right: 20px;">
+            <input type="radio" name="metodo_pagamento" value="pix" required> Pix
+        </label>
+        <label>
+            <input type="radio" name="metodo_pagamento" value="entrega"> Pagamento na Entrega
+        </label>
+        <br><br>
+        <button type="submit" style="padding: 10px 20px; background-color:#ff7fa8; color:white; border:none; border-radius:8px; cursor:pointer;">
+            Finalizar Compra
+        </button>
+    </form>
+</div>
+
+    <!-- Botão de continuar comprando -->
+    <div style="text-align:center; margin-top: 10px;">
+        <a href="{{ url_for('index') }}" class="button">Continuar Comprando</a>
+    </div>
+
+    {% else %}
+    <p style="text-align:center;">Seu carrinho está vazio.</p>
+    <div style="text-align:center;">
+        <a href="{{ url_for('index') }}" class="button">Voltar para a loja</a>
+    </div>
+    {% endif %}
+</body>
+</html>

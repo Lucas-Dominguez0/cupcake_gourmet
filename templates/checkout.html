@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finalizar Compra</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #fff8f2; padding: 20px; }
+        h1 { color: #ff7fa8; text-align: center; }
+        form { max-width: 400px; margin: 0 auto; background-color: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px #ffd1dc; }
+        label { display: block; margin-top: 10px; }
+        input { width: 100%; padding: 8px; margin-top: 5px; border-radius: 5px; border: 1px solid #ccc; }
+        button { margin-top: 15px; padding: 10px; background-color: #ff7fa8; color: white; border: none; border-radius: 8px; width: 100%; }
+        a { display: block; text-align: center; margin-top: 15px; color: #ff7fa8; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <h1>Finalizar Compra</h1>
+
+    <form method="POST" action="{{ url_for('checkout') }}">
+        <label>Nome Completo:</label>
+        <input type="text" name="nome_cliente" required>
+
+        <label>Email:</label>
+        <input type="email" name="email" required>
+
+        <p><strong>Total da compra:</strong> R$ {{ "%.2f"|format(total) }}</p>
+
+        <button type="submit">Confirmar Pedido</button>
+        <a href="{{ url_for('cart') }}">Voltar ao carrinho</a>
+    </form>
+</body>
+</html>

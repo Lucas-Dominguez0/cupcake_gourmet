@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil - Cupcake Gourmet</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #fff8f2; padding: 20px; }
+        h1 { color: #ff7fa8; text-align: center; }
+        .perfil-container { max-width: 400px; margin: auto; background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        .perfil-container p { font-size: 16px; margin: 10px 0; }
+        .button { display: inline-block; padding: 10px 20px; background-color: #ff7fa8; color: white; text-decoration: none; border-radius: 8px; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h1>Meu Perfil</h1>
+    <div class="perfil-container">
+        <p><strong>Nome:</strong> {{ usuario.nome }} {{ usuario.sobrenome }}</p>
+        <p><strong>E-mail:</strong> {{ usuario.email }}</p>
+        <p><strong>Telefone:</strong> {{ usuario.telefone or 'Não informado' }}</p>
+        <p><strong>Endereço:</strong> {{ usuario.endereco or 'Não informado' }}</p>
+        <div style="text-align:center;">
+            <a href="{{ url_for('index') }}" class="button">Voltar à Loja</a>
+            <a href="{{ url_for('logout') }}" class="button">Sair</a>
+        </div>
+    </div>
+</body>
+</html>

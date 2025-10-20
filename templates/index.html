@@ -53,25 +53,49 @@
     </style>
 </head>
 <body>
-    <header>
-        <h1>Cupcake Gourmet</h1>
-        <nav>
-            <a href="{{ url_for('index') }}">Início</a>
-            <a href="{{ url_for('cadastro') }}">Cadastro</a>
-            <a href="{{ url_for('login') }}">Login</a>
+    <header style="display: flex; justify-content: space-between; align-items: center; padding: 10px; background-color: #ff7fa8; color: white;">
+    <!-- Logo e navegação -->
+    <div>
+        <h1 style="margin: 0; display: inline;">Cupcake Gourmet</h1>
+        <nav style="display: inline; margin-left: 20px;">
+            <a href="{{ url_for('index') }}" style="color:white; margin-right:10px;">Início</a>
+            <a href="{{ url_for('cadastro') }}" style="color:white; margin-right:10px;">Cadastro</a>
+            <a href="{{ url_for('cart') }}" style="color:white;">Carrinho ({{ session.get('cart', [])|length }})</a>
         </nav>
-    </header>
+    </div>
+
+    <!-- Área do usuário -->
+    <div>
+        {% if session.usuario_nome %}
+            <a href="{{ url_for('perfil') }}" class="button">{{ session.usuario_nome }}</a>
+            <a href="{{ url_for('logout') }}" class="button">Sair</a>
+        {% else %}
+            <a href="{{ url_for('login') }}" class="button">Login</a>
+        {% endif %}
+    </div>
+</header>
+
 
     <div class="produtos">
         {% for produto in produtos %}
-        <div class="produto">
-            <img src="{{ produto.imagem }}" alt="{{ produto.nome }}">
-            <h3>{{ produto.nome }}</h3>
-            <p>R$ {{ "%.2f"|format(produto.preco) }}</p>
-            <p>Categoria: {{ produto.categoria }}</p>
-            <button>Comprar</button>
+<div class="produto">
+    <h3>{{ produto.nome }}</h3>
+    <img src="{{ url_for('static', filename='images/' ~ produto.imagem) }}" alt="{{ produto.nome }}" width="200">
+    <p>R$ {{ "%.2f"|format(produto.preco) }}</p>
+    <form method="POST" action="{{ url_for('add_to_cart') }}">
+        <input type="hidden" name="produto_id" value="{{ produto.id }}">
+        <button type="submit">Adicionar ao Carrinho</button>
+    </form>
+</div>
+{% endfor %}
+
+          <div style="text-align:center; margin-top: 30px;">
+            <a href="{{ url_for('cart') }}" class="button" 
+                style="padding: 12px 25px; background-color:#ff7fa8; color:white; border-radius:8px; text-decoration:none;">
+                🛒 Ir para o carrinho
+            </a>
         </div>
-        {% endfor %}
     </div>
+    
 </body>
 </html>
